@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build APK with EAS
+      - name: Setup EAS CLI
         uses: expo/expo-github-action@v8
         with:
           eas-version: latest
@@ -29,5 +29,21 @@ jobs:
       - name: Link EAS project
         run: eas init --account sksksk21s-team --non-interactive
 
-      - name: Submit Android preview build
-        run: eas build --platform android --profile preview --non-interactive --wait
+      - name: Build APK with EAS
+        id: eas-build
+        run: |
+          set -e
+          eas build --platform android --profile preview --non-interactive --wait --json > eas-build.json
+          APK_URL=$(node -e "const fs=require('fs'); const v=JSON.parse(fs.readFileSync('eas-build.json','utf8')); const b=Array.isArray(v)?v[0]:v; const u=b?.artifacts?.buildUrl || b?.artifacts?.applicationArchiveUrl || b?.applicationArchiveUrl; if(!u) process.exit(1); process.stdout.write(u)")
+          echo "apk_url=$APK_URL" >> "$GITHUB_OUTPUT"
+          curl -fL "$APK_URL" -o VoxLab-Voice-Studio.apk
+          test -s VoxLab-Voice-Studio.apk
+          echo "APK downloaded successfully."
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: VoxLab-Voice-Studio-APK
+          path: VoxLab-Voice-Studio.apk
+          if-no-files-found: error
+          retention-days: 30
