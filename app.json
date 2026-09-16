@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "VoxLab Voice Studio",
+    "slug": "voxlab-voice-studio",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "scheme": "voxlab",
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0B0C13",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.voxlab.voicestudio",
+      "versionCode": 1,
+      "permissions": ["RECORD_AUDIO"]
+    },
+    "web": { "favicon": "./assets/favicon.png" },
+    "plugins": [
+      "expo-audio"
+    ]
+  }
+}
