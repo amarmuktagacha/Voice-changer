@@ -2,6 +2,7 @@
   "expo": {
     "name": "VoxLab Voice Studio",
     "slug": "voxlab-voice-studio",
+    "owner": "sksksk21s-team",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

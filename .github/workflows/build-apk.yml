@@ -26,5 +26,8 @@ jobs:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
+      - name: Link EAS project
+        run: eas init --account sksksk21s-team --non-interactive
+
       - name: Submit Android preview build
         run: eas build --platform android --profile preview --non-interactive --wait
